@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mission to Mars</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </script>
+
+    <style>    
+        /* Set black background color, white text and some padding */
+        footer {
+        background-color: #555;
+        color: white;
+        padding: 15px;
+        }
+    </style>
+</head>
+
+
+<body>
+  <div class="jumbotron text-center">
+    <h1>Mission to Mars</h1>
+      <p>
+        <a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a>
+      </p>
+  </div>
+  <div>
+  <!-- LATEST MARS NEWS -->
+  <div class="container-fluid">
+      <div class="col-md-12">
+        {% if info_dict.news_title and info_dict.news_paragraph%}
+        <h3>Latest Mars News</h3>
+        <p style="font-size:150%;">{{ info_dict.news_title }}</p>
+        <p style="font-size:125%;">{{ info_dict.news_paragraph}}</p>
+        {% endif %}
+      </div>
+      <row>
+      <!-- FEATURED MARS IMAGE -->
+      <div class="col-md-8">
+        {% if info_dict.featured_image_url %}
+        <h3>Featured Mars Image</h3>
+        <img style='height: 100%; width: 100%; object-fit: contain' src="{{info_dict.featured_image_url}}" alt="Featured Mars Image">
+        {% endif %}
+      </div>
+      <!-- CURRENT WEATHER ON MARS -->
+      <div class="col-md-4">
+          {% if info_dict.latest_tweet %}
+          <h3>Current Weather on Mars</h3>
+            <p style="font-size:100%;">{{ info_dict.latest_tweet}}</p>
+          {% endif %}
+      </div>
+      <!-- MARS FACTS -->
+      <div class="col-md-4">
+          {% if info_dict.mars_table %}
+          <h3>Mars Facts</h3>
+          <table border="1" class="dataframe">
+              <thead>
+                <tr style="text-align: right;">
+                  <th>{{ info_dict.mars_table['ch0']}}</th>
+                  <th>{{ info_dict.mars_table['ch1']}}</th>
+                </tr>
+              </thead> 
+              <tbody>
+                <tr>
+                  <th>{{ info_dict.mars_table['rh0']}}</th>
+                  <td>{{ info_dict.mars_table['rd0']}}</td>
+                </tr>
+                <tr>
+                  <th>{{ info_dict.mars_table['rh1']}}</th>
+                  <td>{{ info_dict.mars_table['rd1']}}</td>
+                </tr>
+                <tr>
+                  <th>{{ info_dict.mars_table['rh2']}}</th>
+                  <td>{{ info_dict.mars_table['rd2']}}</td>
+                </tr>
+                <tr>
+                  <th>{{ info_dict.mars_table['rh3']}}</th>
+                  <td>{{ info_dict.mars_table['rd3']}}</td>
+                </tr>
+                <tr>
+                  <th>{{ info_dict.mars_table['rh4']}}</th>
+                  <td>{{ info_dict.mars_table['rd4']}}</td>
+                </tr>
+                <tr>
+                  <th>{{ info_dict.mars_table['rh5']}}</th>
+                  <td>{{ info_dict.mars_table['rd5']}}</td>
+                </tr>
+                <tr>
+                  <th>{{ info_dict.mars_table['rh6']}}</th>
+                  <td>{{ info_dict.mars_table['rd6']}}</td>
+                </tr>
+                <tr>
+                  <th>{{ info_dict.mars_table['rh7']}}</th>
+                  <td>{{ info_dict.mars_table['rd7']}}</td>
+                </tr>
+                <tr>
+                  <th>{{ info_dict.mars_table['rh8']}}</th>
+                  <td>{{ info_dict.mars_table['rd8']}}</td> 
+                </tr>
+              </tbody> 
+            </table>
+          {% endif %}
+    </div>
+  </row>
+    <!-- MARS HEMISPHERES -->
+    <div class="col-md-12">
+        {% if info_dict.image_dict_list %}
+          <h3>Mars Hemispheres</h3>
+          {% for image_dict in info_dict.image_dict_list %}
+          <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                  <img style='height: 100%; width: 100%;' class="card-img-top" src={{image_dict['img_url']}} alt="{{image_dict['title']}}">
+                  <h4 class="card-title">{{image_dict['title']}}</h4>
+                </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% endif %}
+    </div>
+  </div>
+</body>
+</html>
